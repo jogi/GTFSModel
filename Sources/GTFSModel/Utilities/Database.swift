@@ -15,7 +15,7 @@ public protocol DatabaseCreating {
 public struct DatabaseHelper {
     public var dbQueue: DatabaseQueue?
     
-    init() throws {
+    public init() throws {
         dbQueue = try DatabaseQueue(path: "./gtfs.sqlite")
     }
     

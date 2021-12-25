@@ -13,6 +13,7 @@ public struct Calendar {
         case unavailable = 0
         case available = 1
     }
+    
     public var serviceIdentifier: String
     public var startDate: Date
     public var endDate: Date
@@ -44,7 +45,7 @@ extension Calendar: Codable, PersistableRecord {
         static let sunday = Column(CodingKeys.sunday)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case serviceIdentifier = "service_id"
         case startDate = "start_date"
         case endDate = "end_date"

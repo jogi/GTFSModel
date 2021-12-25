@@ -30,7 +30,7 @@ extension Shape: Codable, PersistableRecord {
         static let distanceTraveled = Column(CodingKeys.distanceTraveled)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case identifier = "shape_id"
         case latitude = "shape_pt_lat"
         case longitude = "shape_pt_lon"

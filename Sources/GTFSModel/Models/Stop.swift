@@ -60,7 +60,7 @@ extension Stop: Codable, PersistableRecord {
         static let platformCode = Column(CodingKeys.platformCode)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case identifier = "stop_id"
         case code = "stop_code"
         case name = "stop_name"

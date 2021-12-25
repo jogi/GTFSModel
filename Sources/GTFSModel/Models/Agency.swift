@@ -34,7 +34,7 @@ extension Agency: Codable, PersistableRecord {
         static let email = Column(CodingKeys.email)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case identifier = "agency_id"
         case name = "agency_name"
         case url = "agency_url"

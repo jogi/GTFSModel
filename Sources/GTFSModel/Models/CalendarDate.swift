@@ -31,7 +31,7 @@ extension CalendarDate: Codable, PersistableRecord {
         static let exceptionType = Column(CodingKeys.exceptionType)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case serviceIdentifier = "service_id"
         case date = "date"
         case exceptionType = "exception_type"

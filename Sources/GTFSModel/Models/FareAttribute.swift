@@ -45,7 +45,7 @@ extension FareAttribute: Codable, PersistableRecord {
         static let transferDuration = Column(CodingKeys.transferDuration)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case identifier = "fare_id"
         case price
         case currencyType = "currency_type"

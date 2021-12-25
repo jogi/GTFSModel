@@ -46,7 +46,7 @@ extension Direction: Codable, PersistableRecord {
         static let name = Column(CodingKeys.name)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case identifier = "direction_id"
         case routeIdentifier = "route_id"
         case direction

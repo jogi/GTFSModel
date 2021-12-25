@@ -64,7 +64,7 @@ extension StopTime: Codable, PersistableRecord {
         static let timepoint = Column(CodingKeys.timepoint)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case tripIdentifier = "trip_id"
         case arrivalTime = "arrival_time"
         case departureTime = "departure_time"

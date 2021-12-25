@@ -30,7 +30,7 @@ extension FareRule: Codable, PersistableRecord {
         static let containsIdentifier = Column(CodingKeys.containsIdentifier)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case fareIdentifier = "fare_id"
         case routeIdentifier = "route_id"
         case originIdentifier = "origin_id"

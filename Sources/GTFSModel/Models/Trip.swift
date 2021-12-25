@@ -52,7 +52,7 @@ extension Trip: Codable, PersistableRecord {
         static let bikesAllowed = Column(CodingKeys.bikesAllowed)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case identifier = "trip_id"
         case routeIdentifier = "route_id"
         case serviceIdentifier = "service_id"

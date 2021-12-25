@@ -76,7 +76,7 @@ extension Route: Codable, PersistableRecord {
         static let continuousDropoff = Column(CodingKeys.continuousDropoff)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case identifier = "route_id"
         case type = "route_type"
         case agencyIdentifier = "agency_id"
