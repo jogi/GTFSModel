@@ -13,7 +13,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "GRDB", url: "https://github.com/groue/GRDB.swift.git", from: "4.13.0"),
+        .package(name: "GRDB", url: "https://github.com/groue/GRDB.swift.git", from: "6.29.1"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
