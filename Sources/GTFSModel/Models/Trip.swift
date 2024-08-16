@@ -101,16 +101,16 @@ extension Trip: DatabaseCreating {
 }
 
 extension Route {
-    static let trips = hasMany(Trip.self)
-    var trips: QueryInterfaceRequest<Trip> { request(for: Route.trips) }
+    public static let trips = hasMany(Trip.self)
+    public var trips: QueryInterfaceRequest<Trip> { request(for: Route.trips) }
 }
 
 extension Trip {
-    static let route = belongsTo(Route.self)
-    var route: QueryInterfaceRequest<Route> { request(for: Trip.route) }
+    public static let route = belongsTo(Route.self)
+    public var route: QueryInterfaceRequest<Route> { request(for: Trip.route) }
 }
 
-struct TripInfo: Decodable, FetchableRecord {
+public struct TripInfo: Decodable, FetchableRecord {
     var route: Route
     var trip: Trip
 }
