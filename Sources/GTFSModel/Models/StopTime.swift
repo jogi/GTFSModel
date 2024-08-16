@@ -41,7 +41,7 @@ public struct StopTime {
     public var continuousDropoff: ContinuationType?
     public var shapeDistanceTraveled: Double?
     public var timepoint: TimepointType?
-    public var isLastStop: Bool
+    public var isLastStop: Bool?
 }
 
 // For diffing
