@@ -20,7 +20,7 @@ public struct FareRule {
 // For diffing
 extension FareRule: Hashable {}
 
-extension FareRule: Codable, PersistableRecord {
+extension FareRule: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "fare_rules"
     
     private enum Columns {

@@ -46,9 +46,10 @@ public struct StopTime {
 // For diffing
 extension StopTime: Hashable {}
 
-extension StopTime: Codable, PersistableRecord {
+extension StopTime: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "stop_times"
     public static var databaseDateEncodingStrategy = DatabaseDateEncodingStrategy.formatted(DateFormatter.hhmmss)
+    public static var databaseDateDecodingStrategy = DatabaseDateDecodingStrategy.formatted(DateFormatter.hhmmss)
     
     private enum Columns {
         static let tripIdentifier = Column(CodingKeys.tripIdentifier)

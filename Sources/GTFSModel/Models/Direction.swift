@@ -37,7 +37,7 @@ public struct Direction {
 // For diffing
 extension Direction: Hashable {}
 
-extension Direction: Codable, PersistableRecord {
+extension Direction: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "directions"
     
     private enum Columns {

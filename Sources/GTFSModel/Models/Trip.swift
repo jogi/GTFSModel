@@ -37,7 +37,7 @@ public struct Trip {
 // For diffing
 extension Trip: Hashable {}
 
-extension Trip: Codable, PersistableRecord {
+extension Trip: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "trips"
     
     private enum Columns {
@@ -98,6 +98,21 @@ extension Trip: DatabaseCreating {
                 .notNull()
         }
     }
+}
+
+extension Route {
+    static let trips = hasMany(Trip.self)
+    var trips: QueryInterfaceRequest<Trip> { request(for: Route.trips) }
+}
+
+extension Trip {
+    static let route = belongsTo(Route.self)
+    var route: QueryInterfaceRequest<Route> { request(for: Trip.route) }
+}
+
+struct TripInfo: Decodable, FetchableRecord {
+    var route: Route
+    var trip: Trip
 }
 
 extension Trip: CustomStringConvertible {

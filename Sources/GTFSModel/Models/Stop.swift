@@ -43,7 +43,7 @@ public struct Stop {
 // For diffing
 extension Stop: Hashable {}
 
-extension Stop: Codable, PersistableRecord {
+extension Stop: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "stops"
     
     private enum Columns {

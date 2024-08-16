@@ -23,7 +23,7 @@ public struct Agency {
 // For diffing
 extension Agency: Hashable {}
 
-extension Agency: Codable, PersistableRecord {
+extension Agency: Codable, PersistableRecord, FetchableRecord {
     private enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let name = Column(CodingKeys.name)

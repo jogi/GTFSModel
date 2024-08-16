@@ -20,7 +20,7 @@ public struct Shape {
 // For diffing
 extension Shape: Hashable {}
 
-extension Shape: Codable, PersistableRecord {
+extension Shape: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "shapes"
     
     private enum Columns {

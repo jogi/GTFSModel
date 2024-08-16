@@ -33,7 +33,7 @@ public struct FareAttribute {
 // For diffing
 extension FareAttribute: Hashable {}
 
-extension FareAttribute: Codable, PersistableRecord {
+extension FareAttribute: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "fare_attributes"
     
     private enum Columns {

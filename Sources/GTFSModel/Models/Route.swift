@@ -59,7 +59,7 @@ public struct Route {
 // For diffing
 extension Route: Hashable {}
 
-extension Route: Codable, PersistableRecord {
+extension Route: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "routes"
     
     private enum Columns {

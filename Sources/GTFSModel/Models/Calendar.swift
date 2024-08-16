@@ -30,8 +30,9 @@ public struct Calendar {
 // For diffing
 extension Calendar: Hashable {}
 
-extension Calendar: Codable, PersistableRecord {
+extension Calendar: Codable, PersistableRecord, FetchableRecord {
     public static let databaseDateEncodingStrategy: DatabaseDateEncodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
+    public static let databaseDateDecodingStrategy: DatabaseDateDecodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
     
     private enum Columns {
         static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)

@@ -22,8 +22,9 @@ public struct CalendarDate {
 // For diffing
 extension CalendarDate: Hashable {}
 
-extension CalendarDate: Codable, PersistableRecord {
+extension CalendarDate: Codable, PersistableRecord, FetchableRecord {
     public static let databaseDateEncodingStrategy: DatabaseDateEncodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
+    public static let databaseDateDecodingStrategy: DatabaseDateDecodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
     public static var databaseTableName = "calendar_dates"
     
     private enum Columns {
