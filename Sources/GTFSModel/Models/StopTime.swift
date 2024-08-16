@@ -41,6 +41,7 @@ public struct StopTime {
     public var continuousDropoff: ContinuationType?
     public var shapeDistanceTraveled: Double?
     public var timepoint: TimepointType?
+    public var isLastStop: Bool
 }
 
 // For diffing
@@ -64,6 +65,7 @@ extension StopTime: Codable, PersistableRecord, FetchableRecord {
         static let continuousDropoff = Column(CodingKeys.continuousDropoff)
         static let shapeDistanceTraveled = Column(CodingKeys.shapeDistanceTraveled)
         static let timepoint = Column(CodingKeys.timepoint)
+        static let isLastStop = Column(CodingKeys.isLastStop)
     }
     
     public enum CodingKeys: String, CodingKey {
@@ -79,6 +81,7 @@ extension StopTime: Codable, PersistableRecord, FetchableRecord {
         case continuousDropoff = "continuous_drop_off"
         case shapeDistanceTraveled = "shape_dist_traveled"
         case timepoint = "timepoint"
+        case isLastStop = "is_laststop"
     }
 }
 
@@ -110,6 +113,7 @@ extension StopTime: DatabaseCreating {
             t.column(CodingKeys.continuousDropoff.rawValue, .integer).notNull()
             t.column(CodingKeys.shapeDistanceTraveled.rawValue, .double)
             t.column(CodingKeys.timepoint.rawValue, .integer).notNull()
+            t.column(CodingKeys.isLastStop.rawValue, .boolean).notNull().defaults(to: false)
         }
     }
 }
