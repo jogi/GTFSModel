@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct FareAttribute {
     public enum PaymentMethod: Int, Codable {
@@ -53,6 +54,27 @@ extension FareAttribute: Codable, PersistableRecord {
         case transfers
         case agencyIdentifier = "agency_id"
         case transferDuration = "transfer_duration"
+    }
+}
+
+extension FareAttribute: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: FareAttribute.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(FareAttribute.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: FareAttribute.databaseTableName) { t in
+            t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
+            t.column(CodingKeys.price.rawValue, .double).notNull()
+            t.column(CodingKeys.currencyType.rawValue, .text).notNull()
+            t.column(CodingKeys.paymentMethod.rawValue, .integer).notNull()
+            t.column(CodingKeys.transfers.rawValue, .integer).notNull()
+            t.column(CodingKeys.agencyIdentifier.rawValue, .text)
+            t.column(CodingKeys.transferDuration.rawValue, .integer)
+        }
     }
 }
 

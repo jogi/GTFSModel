@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct CalendarDate {
     public enum ExceptionType: Int, Codable {
@@ -35,6 +36,23 @@ extension CalendarDate: Codable, PersistableRecord {
         case serviceIdentifier = "service_id"
         case date = "date"
         case exceptionType = "exception_type"
+    }
+}
+
+extension CalendarDate: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: CalendarDate.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(CalendarDate.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: CalendarDate.databaseTableName) { t in
+            t.column(CodingKeys.serviceIdentifier.rawValue, .text).notNull().indexed()
+            t.column(CodingKeys.date.rawValue, .date).notNull()
+            t.column(CodingKeys.exceptionType.rawValue, .integer).notNull()
+        }
     }
 }
 

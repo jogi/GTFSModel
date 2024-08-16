@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct Direction {
     public enum DirectionType: String, Codable {
@@ -51,6 +52,25 @@ extension Direction: Codable, PersistableRecord {
         case routeIdentifier = "route_id"
         case direction
         case name = "direction_name"
+    }
+}
+
+extension Direction: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: Direction.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(Direction.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: Direction.databaseTableName) { t in
+            t.column(CodingKeys.identifier.rawValue, .integer).notNull()
+            t.column(CodingKeys.routeIdentifier.rawValue, .text).notNull()
+            t.column(CodingKeys.direction.rawValue, .text).notNull()
+            t.column(CodingKeys.name.rawValue, .text)
+            t.primaryKey([CodingKeys.identifier.rawValue, CodingKeys.routeIdentifier.rawValue])
+        }
     }
 }
 

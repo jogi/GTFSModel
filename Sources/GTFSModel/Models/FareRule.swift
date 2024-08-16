@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct FareRule {
     public var fareIdentifier: String
@@ -36,6 +37,25 @@ extension FareRule: Codable, PersistableRecord {
         case originIdentifier = "origin_id"
         case destinationIdentifier = "destination_id"
         case containsIdentifier = "contains_id"
+    }
+}
+
+extension FareRule: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: FareRule.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(FareRule.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: FareRule.databaseTableName) { t in
+            t.column(CodingKeys.fareIdentifier.rawValue, .text).notNull()
+            t.column(CodingKeys.routeIdentifier.rawValue, .text)
+            t.column(CodingKeys.originIdentifier.rawValue, .text)
+            t.column(CodingKeys.destinationIdentifier.rawValue, .text)
+            t.column(CodingKeys.containsIdentifier.rawValue, .text)
+        }
     }
 }
 

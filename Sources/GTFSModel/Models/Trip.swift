@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct Trip {
     public enum WheelchairAccessibility: Int, Codable {
@@ -63,6 +64,39 @@ extension Trip: Codable, PersistableRecord {
         case shapeIdentifier = "shape_id"
         case wheelchairAccessible = "wheelchair_accessible"
         case bikesAllowed = "bikes_allowed"
+    }
+}
+
+extension Trip: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: Trip.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(Trip.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: Trip.databaseTableName) { t in
+            t.column(CodingKeys.identifier.rawValue, .text)
+                .notNull()
+                .primaryKey()
+            t.column(CodingKeys.routeIdentifier.rawValue, .text)
+                .notNull()
+                .indexed()
+                .references(Route.databaseTableName)
+            t.column(CodingKeys.serviceIdentifier.rawValue, .text)
+                .notNull()
+                .indexed()
+            t.column(CodingKeys.headSign.rawValue, .text)
+            t.column(CodingKeys.shortName.rawValue, .text)
+            t.column(CodingKeys.directionIdentifier.rawValue, .integer)
+            t.column(CodingKeys.blockIdentifier.rawValue, .text)
+            t.column(CodingKeys.shapeIdentifier.rawValue, .text)
+            t.column(CodingKeys.wheelchairAccessible.rawValue, .integer)
+                .notNull()
+            t.column(CodingKeys.bikesAllowed.rawValue, .integer)
+                .notNull()
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct Shape {
     public var identifier: String
@@ -36,6 +37,25 @@ extension Shape: Codable, PersistableRecord {
         case longitude = "shape_pt_lon"
         case sequence = "shape_pt_sequence"
         case distanceTraveled = "shape_dist_traveled"
+    }
+}
+
+extension Shape: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: Shape.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(Shape.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: Shape.databaseTableName) { t in
+            t.column(CodingKeys.identifier.rawValue, .text).notNull().indexed()
+            t.column(CodingKeys.latitude.rawValue, .double).notNull()
+            t.column(CodingKeys.longitude.rawValue, .double).notNull()
+            t.column(CodingKeys.sequence.rawValue, .integer).notNull()
+            t.column(CodingKeys.distanceTraveled.rawValue, .double)
+        }
     }
 }
 

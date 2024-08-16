@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct Agency {
     public var identifier: String
@@ -43,6 +44,28 @@ extension Agency: Codable, PersistableRecord {
         case phone = "agency_phone"
         case fareURL = "agency_fare_url"
         case email = "agency_email"
+    }
+}
+
+extension Agency: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: Agency.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(Agency.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: Agency.databaseTableName) { t in
+            t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
+            t.column(CodingKeys.name.rawValue, .text).notNull()
+            t.column(CodingKeys.url.rawValue, .text).notNull()
+            t.column(CodingKeys.timezone.rawValue, .text).notNull()
+            t.column(CodingKeys.language.rawValue, .text)
+            t.column(CodingKeys.phone.rawValue, .text)
+            t.column(CodingKeys.fareURL.rawValue, .text)
+            t.column(CodingKeys.email.rawValue, .text)
+        }
     }
 }
 

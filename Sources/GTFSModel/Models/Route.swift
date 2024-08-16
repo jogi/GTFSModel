@@ -7,6 +7,7 @@
 
 import Foundation
 import GRDB
+import OSLog
 
 public struct Route {
     /*
@@ -89,6 +90,32 @@ extension Route: Codable, PersistableRecord {
         case sortOrder = "route_sort_order"
         case continuousPickup = "continuous_pickup"
         case continuousDropoff = "continuous_drop_off"
+    }
+}
+
+extension Route: DatabaseCreating {
+    public static func createTable(db: Database) throws {
+        do {
+            try db.drop(table: Route.databaseTableName)
+        } catch {
+            Logger.model.log("Table \(Route.databaseTableName) does not exist.")
+        }
+        
+        // now create new table
+        try db.create(table: Route.databaseTableName) { t in
+            t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
+            t.column(CodingKeys.type.rawValue, .integer).notNull()
+            t.column(CodingKeys.agencyIdentifier.rawValue, .text)
+            t.column(CodingKeys.shortName.rawValue, .text)
+            t.column(CodingKeys.longName.rawValue, .text)
+            t.column(CodingKeys.routeDescription.rawValue, .text)
+            t.column(CodingKeys.url.rawValue, .text)
+            t.column(CodingKeys.color.rawValue, .text).notNull()
+            t.column(CodingKeys.textColor.rawValue, .text).notNull()
+            t.column(CodingKeys.sortOrder.rawValue, .text).notNull()
+            t.column(CodingKeys.continuousPickup.rawValue, .text).notNull()
+            t.column(CodingKeys.continuousDropoff.rawValue, .text).notNull()
+        }
     }
 }
 
