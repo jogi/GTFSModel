@@ -36,6 +36,7 @@ public struct Stop {
     public var wheelchairBording: WheelchairBoarding = .noInformation
     public var levelIdentifier: String?
     public var platformCode: String?
+    public var routes: String?
 }
 
 // For diffing
@@ -58,6 +59,7 @@ extension Stop: Codable, PersistableRecord {
         static let wheelchairBording = Column(CodingKeys.wheelchairBording)
         static let levelIdentifier = Column(CodingKeys.levelIdentifier)
         static let platformCode = Column(CodingKeys.platformCode)
+        static let routes = Column(CodingKeys.routes)
     }
     
     public enum CodingKeys: String, CodingKey {
@@ -74,6 +76,7 @@ extension Stop: Codable, PersistableRecord {
         case wheelchairBording = "wheelchair_boarding"
         case levelIdentifier = "level_id"
         case platformCode = "platform_code"
+        case routes = "routes"
     }
 }
 
