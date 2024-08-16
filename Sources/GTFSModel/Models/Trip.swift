@@ -111,8 +111,8 @@ extension Trip {
 }
 
 public struct TripInfo: Decodable, FetchableRecord {
-    var route: Route
-    var trip: Trip
+    public var route: Route
+    public var trip: Trip
 }
 
 extension Trip: CustomStringConvertible {
