@@ -12,7 +12,7 @@ extension DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"
         formatter.calendar = Foundation.Calendar(identifier: .iso8601)
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.timeZone = TimeZone(identifier: "America/Los_Angeles")
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()
@@ -21,7 +21,7 @@ extension DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.calendar = Foundation.Calendar(identifier: .iso8601)
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.timeZone = TimeZone(identifier: "America/Los_Angeles")
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()
@@ -30,7 +30,7 @@ extension DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
         formatter.calendar = Foundation.Calendar(identifier: .iso8601)
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.timeZone = TimeZone(identifier: "America/Los_Angeles")
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()
