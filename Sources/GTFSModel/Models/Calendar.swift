@@ -69,23 +69,19 @@ extension Calendar: DatabaseCreating {
             Logger.model.log("Table \(Calendar.databaseTableName) does not exist.")
         }
 
-        // now create new table
-        // Match legacy schema from master branch
+        // Match legacy column order from master branch
         try db.create(table: Calendar.databaseTableName) { t in
-            t.column(CodingKeys.serviceIdentifier.rawValue, .text)
-            t.column(CodingKeys.startDate.rawValue, .date)
-            t.column(CodingKeys.endDate.rawValue, .date)
-            t.column(CodingKeys.monday.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.tuesday.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.wednesday.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.thursday.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.friday.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.saturday.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.sunday.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
+            t.column(CodingKeys.serviceIdentifier.rawValue, .text).notNull().primaryKey()
+            t.column(CodingKeys.startDate.rawValue, .date).notNull()
+            t.column(CodingKeys.endDate.rawValue, .date).notNull()
+            t.column(CodingKeys.monday.rawValue, .integer).notNull()
+            t.column(CodingKeys.tuesday.rawValue, .integer).notNull()
+            t.column(CodingKeys.wednesday.rawValue, .integer).notNull()
+            t.column(CodingKeys.thursday.rawValue, .integer).notNull()
+            t.column(CodingKeys.friday.rawValue, .integer).notNull()
+            t.column(CodingKeys.saturday.rawValue, .integer).notNull()
+            t.column(CodingKeys.sunday.rawValue, .integer).notNull()
         }
-
-        // Create index manually to match master schema
-        try db.create(index: "service_id_calendar", on: Calendar.databaseTableName, columns: [CodingKeys.serviceIdentifier.rawValue])
     }
 }
 
