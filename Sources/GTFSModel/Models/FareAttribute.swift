@@ -64,16 +64,16 @@ extension FareAttribute: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(FareAttribute.databaseTableName) does not exist.")
         }
-        
+
         // now create new table
+        // Match legacy schema from master branch
         try db.create(table: FareAttribute.databaseTableName) { t in
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
-            t.column(CodingKeys.price.rawValue, .double).notNull()
-            t.column(CodingKeys.currencyType.rawValue, .text).notNull()
-            t.column(CodingKeys.paymentMethod.rawValue, .integer).notNull()
-            t.column(CodingKeys.transfers.rawValue, .integer).notNull()
-            t.column(CodingKeys.agencyIdentifier.rawValue, .text)
-            t.column(CodingKeys.transferDuration.rawValue, .integer)
+            t.column(CodingKeys.price.rawValue, Database.ColumnType(rawValue: "FLOAT")).defaults(to: 0.0)
+            t.column(CodingKeys.currencyType.rawValue, .text)
+            t.column(CodingKeys.paymentMethod.rawValue, Database.ColumnType(rawValue: "INT(2)"))
+            t.column(CodingKeys.transfers.rawValue, Database.ColumnType(rawValue: "INT(11)"))
+            t.column(CodingKeys.transferDuration.rawValue, Database.ColumnType(rawValue: "INT(11)"))
         }
     }
 }

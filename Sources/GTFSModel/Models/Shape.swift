@@ -47,15 +47,19 @@ extension Shape: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(Shape.databaseTableName) does not exist.")
         }
-        
+
         // now create new table
+        // Match legacy schema from master branch
         try db.create(table: Shape.databaseTableName) { t in
-            t.column(CodingKeys.identifier.rawValue, .text).notNull().indexed()
-            t.column(CodingKeys.latitude.rawValue, .double).notNull()
-            t.column(CodingKeys.longitude.rawValue, .double).notNull()
+            t.column(CodingKeys.identifier.rawValue, .text).notNull()
+            t.column(CodingKeys.latitude.rawValue, Database.ColumnType(rawValue: "decimal(9,6)"))
+            t.column(CodingKeys.longitude.rawValue, Database.ColumnType(rawValue: "decimal(9,6)"))
             t.column(CodingKeys.sequence.rawValue, .integer).notNull()
-            t.column(CodingKeys.distanceTraveled.rawValue, .double)
+            t.column(CodingKeys.distanceTraveled.rawValue, Database.ColumnType(rawValue: "decimal(9,6)"))
         }
+
+        // Create index manually to match master schema
+        try db.create(index: "shape_id_shape", on: Shape.databaseTableName, columns: [CodingKeys.identifier.rawValue])
     }
 }
 

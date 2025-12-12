@@ -54,17 +54,14 @@ extension Agency: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(Agency.databaseTableName) does not exist.")
         }
-        
+
         // now create new table
+        // Match legacy schema from master branch
         try db.create(table: Agency.databaseTableName) { t in
+            t.column(CodingKeys.url.rawValue, .text)
+            t.column(CodingKeys.name.rawValue, .text)
+            t.column(CodingKeys.timezone.rawValue, .text)
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
-            t.column(CodingKeys.name.rawValue, .text).notNull()
-            t.column(CodingKeys.url.rawValue, .text).notNull()
-            t.column(CodingKeys.timezone.rawValue, .text).notNull()
-            t.column(CodingKeys.language.rawValue, .text)
-            t.column(CodingKeys.phone.rawValue, .text)
-            t.column(CodingKeys.fareURL.rawValue, .text)
-            t.column(CodingKeys.email.rawValue, .text)
         }
     }
 }
