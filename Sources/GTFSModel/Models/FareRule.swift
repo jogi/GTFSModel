@@ -22,7 +22,7 @@ extension FareRule: Hashable {}
 
 extension FareRule: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "fare_rules"
-    
+
     private enum Columns {
         static let fareIdentifier = Column(CodingKeys.fareIdentifier)
         static let routeIdentifier = Column(CodingKeys.routeIdentifier)
@@ -30,13 +30,23 @@ extension FareRule: Codable, PersistableRecord, FetchableRecord {
         static let destinationIdentifier = Column(CodingKeys.destinationIdentifier)
         static let containsIdentifier = Column(CodingKeys.containsIdentifier)
     }
-    
+
     public enum CodingKeys: String, CodingKey {
         case fareIdentifier = "fare_id"
         case routeIdentifier = "route_id"
         case originIdentifier = "origin_id"
         case destinationIdentifier = "destination_id"
         case containsIdentifier = "contains_id"
+    }
+
+    // Override encode to handle nil values as empty strings (master branch behavior)
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(fareIdentifier, forKey: .fareIdentifier)
+        try container.encode(routeIdentifier ?? "", forKey: .routeIdentifier)
+        try container.encode(originIdentifier ?? "", forKey: .originIdentifier)
+        try container.encode(destinationIdentifier ?? "", forKey: .destinationIdentifier)
+        try container.encode(containsIdentifier ?? "", forKey: .containsIdentifier)
     }
 }
 
