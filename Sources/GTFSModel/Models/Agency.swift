@@ -45,16 +45,6 @@ extension Agency: Codable, PersistableRecord, FetchableRecord {
         case fareURL = "agency_fare_url"
         case email = "agency_email"
     }
-
-    // Override encode to only persist columns that exist in legacy schema
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(url, forKey: .url)
-        try container.encode(name, forKey: .name)
-        try container.encode(timezone, forKey: .timezone)
-        try container.encode(identifier, forKey: .identifier)
-        // Skip: language, phone, fareURL, email (not in legacy schema)
-    }
 }
 
 extension Agency: DatabaseCreating {
@@ -65,13 +55,16 @@ extension Agency: DatabaseCreating {
             Logger.model.log("Table \(Agency.databaseTableName) does not exist.")
         }
 
-        // now create new table
-        // Match legacy schema from master branch
+        // Match legacy column order from master branch
         try db.create(table: Agency.databaseTableName) { t in
             t.column(CodingKeys.url.rawValue, .text)
             t.column(CodingKeys.name.rawValue, .text)
             t.column(CodingKeys.timezone.rawValue, .text)
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
+            t.column(CodingKeys.language.rawValue, .text)
+            t.column(CodingKeys.phone.rawValue, .text)
+            t.column(CodingKeys.fareURL.rawValue, .text)
+            t.column(CodingKeys.email.rawValue, .text)
         }
     }
 }

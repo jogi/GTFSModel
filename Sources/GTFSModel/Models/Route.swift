@@ -61,7 +61,7 @@ extension Route: Hashable {}
 
 extension Route: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "routes"
-
+    
     private enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let type = Column(CodingKeys.type)
@@ -76,7 +76,7 @@ extension Route: Codable, PersistableRecord, FetchableRecord {
         static let continuousPickup = Column(CodingKeys.continuousPickup)
         static let continuousDropoff = Column(CodingKeys.continuousDropoff)
     }
-
+    
     public enum CodingKeys: String, CodingKey {
         case identifier = "route_id"
         case type = "route_type"
@@ -90,17 +90,6 @@ extension Route: Codable, PersistableRecord, FetchableRecord {
         case sortOrder = "route_sort_order"
         case continuousPickup = "continuous_pickup"
         case continuousDropoff = "continuous_drop_off"
-    }
-
-    // Override encode to only persist columns that exist in legacy schema
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(longName, forKey: .longName)
-        try container.encode(type, forKey: .type)
-        try container.encodeIfPresent(agencyIdentifier, forKey: .agencyIdentifier)
-        try container.encode(identifier, forKey: .identifier)
-        try container.encodeIfPresent(shortName, forKey: .shortName)
-        // Skip: routeDescription, url, color, textColor, sortOrder, continuousPickup, continuousDropoff
     }
 }
 

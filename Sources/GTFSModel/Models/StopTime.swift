@@ -83,19 +83,6 @@ extension StopTime: Codable, PersistableRecord, FetchableRecord {
         case timepoint = "timepoint"
         case isLastStop = "is_laststop"
     }
-
-    // Override encode to only persist columns that exist in legacy schema
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(tripIdentifier, forKey: .tripIdentifier)
-        try container.encode(arrivalTime, forKey: .arrivalTime)
-        try container.encode(departureTime, forKey: .departureTime)
-        try container.encodeIfPresent(stopIdentifier, forKey: .stopIdentifier)
-        try container.encodeIfPresent(stopSequence, forKey: .stopSequence)
-        try container.encodeIfPresent(timepoint, forKey: .timepoint)
-        try container.encodeIfPresent(isLastStop, forKey: .isLastStop)
-        // Skip: stopHeadsign, pickupType, dropoffType, continuousPickup, continuousDropoff, shapeDistanceTraveled
-    }
 }
 
 extension StopTime: DatabaseCreating {

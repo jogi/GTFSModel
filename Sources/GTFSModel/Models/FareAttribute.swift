@@ -55,18 +55,6 @@ extension FareAttribute: Codable, PersistableRecord, FetchableRecord {
         case agencyIdentifier = "agency_id"
         case transferDuration = "transfer_duration"
     }
-
-    // Override encode to only persist columns that exist in legacy schema
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(identifier, forKey: .identifier)
-        try container.encode(price, forKey: .price)
-        try container.encode(currencyType, forKey: .currencyType)
-        try container.encode(paymentMethod, forKey: .paymentMethod)
-        try container.encode(transfers, forKey: .transfers)
-        try container.encodeIfPresent(transferDuration, forKey: .transferDuration)
-        // Skip: agencyIdentifier (not in legacy schema)
-    }
 }
 
 extension FareAttribute: DatabaseCreating {
@@ -77,15 +65,15 @@ extension FareAttribute: DatabaseCreating {
             Logger.model.log("Table \(FareAttribute.databaseTableName) does not exist.")
         }
 
-        // now create new table
-        // Match legacy schema from master branch
+        // Match legacy column order from master branch
         try db.create(table: FareAttribute.databaseTableName) { t in
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
-            t.column(CodingKeys.price.rawValue, Database.ColumnType(rawValue: "FLOAT")).defaults(to: 0.0)
-            t.column(CodingKeys.currencyType.rawValue, .text)
-            t.column(CodingKeys.paymentMethod.rawValue, Database.ColumnType(rawValue: "INT(2)"))
-            t.column(CodingKeys.transfers.rawValue, Database.ColumnType(rawValue: "INT(11)"))
-            t.column(CodingKeys.transferDuration.rawValue, Database.ColumnType(rawValue: "INT(11)"))
+            t.column(CodingKeys.price.rawValue, .double).notNull()
+            t.column(CodingKeys.currencyType.rawValue, .text).notNull()
+            t.column(CodingKeys.paymentMethod.rawValue, .integer).notNull()
+            t.column(CodingKeys.transfers.rawValue, .integer).notNull()
+            t.column(CodingKeys.agencyIdentifier.rawValue, .text)
+            t.column(CodingKeys.transferDuration.rawValue, .integer)
         }
     }
 }

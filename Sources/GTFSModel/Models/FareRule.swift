@@ -38,16 +38,6 @@ extension FareRule: Codable, PersistableRecord, FetchableRecord {
         case destinationIdentifier = "destination_id"
         case containsIdentifier = "contains_id"
     }
-
-    // Override encode to handle nil values as empty strings (master branch behavior)
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(fareIdentifier, forKey: .fareIdentifier)
-        try container.encode(routeIdentifier ?? "", forKey: .routeIdentifier)
-        try container.encode(originIdentifier ?? "", forKey: .originIdentifier)
-        try container.encode(destinationIdentifier ?? "", forKey: .destinationIdentifier)
-        try container.encode(containsIdentifier ?? "", forKey: .containsIdentifier)
-    }
 }
 
 extension FareRule: DatabaseCreating {
@@ -58,14 +48,13 @@ extension FareRule: DatabaseCreating {
             Logger.model.log("Table \(FareRule.databaseTableName) does not exist.")
         }
 
-        // now create new table
-        // Match legacy schema from master branch
+        // Match legacy column order from master branch
         try db.create(table: FareRule.databaseTableName) { t in
             t.column(CodingKeys.fareIdentifier.rawValue, .text).notNull()
-            t.column(CodingKeys.routeIdentifier.rawValue, .text).notNull()
-            t.column(CodingKeys.originIdentifier.rawValue, .text).notNull()
-            t.column(CodingKeys.destinationIdentifier.rawValue, .text).notNull()
-            t.column(CodingKeys.containsIdentifier.rawValue, .text).notNull()
+            t.column(CodingKeys.routeIdentifier.rawValue, .text)
+            t.column(CodingKeys.originIdentifier.rawValue, .text)
+            t.column(CodingKeys.destinationIdentifier.rawValue, .text)
+            t.column(CodingKeys.containsIdentifier.rawValue, .text)
         }
     }
 }

@@ -79,20 +79,6 @@ extension Stop: Codable, PersistableRecord, FetchableRecord {
         case platformCode = "platform_code"
         case routes = "routes"
     }
-
-    // Override encode to only persist columns that exist in legacy schema
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(latitude, forKey: .latitude)
-        try container.encodeIfPresent(zoneIdentifier, forKey: .zoneIdentifier)
-        try container.encode(longitude, forKey: .longitude)
-        try container.encode(identifier, forKey: .identifier)
-        try container.encodeIfPresent(stopDescription, forKey: .stopDescription)
-        try container.encodeIfPresent(name, forKey: .name)
-        try container.encode(locationType, forKey: .locationType)
-        try container.encodeIfPresent(routes, forKey: .routes)
-        // Skip: code, parentStation, timezone, wheelchairBording, levelIdentifier, platformCode
-    }
 }
 
 extension Stop: DatabaseCreating {
