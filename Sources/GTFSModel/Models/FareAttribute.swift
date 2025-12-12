@@ -55,6 +55,18 @@ extension FareAttribute: Codable, PersistableRecord, FetchableRecord {
         case agencyIdentifier = "agency_id"
         case transferDuration = "transfer_duration"
     }
+
+    // Override encode to only persist columns that exist in legacy schema
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(identifier, forKey: .identifier)
+        try container.encode(price, forKey: .price)
+        try container.encode(currencyType, forKey: .currencyType)
+        try container.encode(paymentMethod, forKey: .paymentMethod)
+        try container.encode(transfers, forKey: .transfers)
+        try container.encodeIfPresent(transferDuration, forKey: .transferDuration)
+        // Skip: agencyIdentifier (not in legacy schema)
+    }
 }
 
 extension FareAttribute: DatabaseCreating {

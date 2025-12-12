@@ -65,6 +65,19 @@ extension Trip: Codable, PersistableRecord, FetchableRecord {
         case wheelchairAccessible = "wheelchair_accessible"
         case bikesAllowed = "bikes_allowed"
     }
+
+    // Override encode to only persist columns that exist in legacy schema
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(blockIdentifier, forKey: .blockIdentifier)
+        try container.encodeIfPresent(routeIdentifier, forKey: .routeIdentifier)
+        try container.encodeIfPresent(directionIdentifier, forKey: .directionIdentifier)
+        try container.encodeIfPresent(headSign, forKey: .headSign)
+        try container.encodeIfPresent(serviceIdentifier, forKey: .serviceIdentifier)
+        try container.encode(identifier, forKey: .identifier)
+        try container.encodeIfPresent(shapeIdentifier, forKey: .shapeIdentifier)
+        // Skip: shortName, wheelchairAccessible, bikesAllowed
+    }
 }
 
 extension Trip: DatabaseCreating {

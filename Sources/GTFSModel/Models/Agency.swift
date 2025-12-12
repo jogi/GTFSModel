@@ -34,7 +34,7 @@ extension Agency: Codable, PersistableRecord, FetchableRecord {
         static let fareURL = Column(CodingKeys.fareURL)
         static let email = Column(CodingKeys.email)
     }
-    
+
     public enum CodingKeys: String, CodingKey {
         case identifier = "agency_id"
         case name = "agency_name"
@@ -44,6 +44,16 @@ extension Agency: Codable, PersistableRecord, FetchableRecord {
         case phone = "agency_phone"
         case fareURL = "agency_fare_url"
         case email = "agency_email"
+    }
+
+    // Override encode to only persist columns that exist in legacy schema
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(url, forKey: .url)
+        try container.encode(name, forKey: .name)
+        try container.encode(timezone, forKey: .timezone)
+        try container.encode(identifier, forKey: .identifier)
+        // Skip: language, phone, fareURL, email (not in legacy schema)
     }
 }
 
