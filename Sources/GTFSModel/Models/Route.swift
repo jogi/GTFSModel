@@ -103,11 +103,11 @@ extension Route: DatabaseCreating {
 
         // Match legacy column order from master branch, but include all columns
         try db.create(table: Route.databaseTableName) { t in
-            t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
+            t.column(CodingKeys.longName.rawValue, .text)
             t.column(CodingKeys.type.rawValue, .integer).notNull()
             t.column(CodingKeys.agencyIdentifier.rawValue, .text)
+            t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
             t.column(CodingKeys.shortName.rawValue, .text)
-            t.column(CodingKeys.longName.rawValue, .text)
             t.column(CodingKeys.routeDescription.rawValue, .text)
             t.column(CodingKeys.url.rawValue, .text)
             t.column(CodingKeys.color.rawValue, .text).notNull()

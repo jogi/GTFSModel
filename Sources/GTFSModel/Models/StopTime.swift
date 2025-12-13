@@ -106,14 +106,14 @@ extension StopTime: DatabaseCreating {
                 .indexed()
                 .references(Stop.databaseTableName)
             t.column(CodingKeys.stopSequence.rawValue, .integer).notNull()
+            t.column(CodingKeys.timepoint.rawValue, .integer).notNull()
+            t.column(CodingKeys.isLastStop.rawValue, .boolean).notNull().defaults(to: false)
             t.column(CodingKeys.stopHeadsign.rawValue, .text)
             t.column(CodingKeys.pickupType.rawValue, .integer).notNull()
             t.column(CodingKeys.dropoffType.rawValue, .integer).notNull()
             t.column(CodingKeys.continuousPickup.rawValue, .integer).notNull()
             t.column(CodingKeys.continuousDropoff.rawValue, .integer).notNull()
             t.column(CodingKeys.shapeDistanceTraveled.rawValue, .double)
-            t.column(CodingKeys.timepoint.rawValue, .integer).notNull()
-            t.column(CodingKeys.isLastStop.rawValue, .boolean).notNull().defaults(to: false)
         }
     }
 }
