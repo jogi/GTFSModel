@@ -75,20 +75,28 @@ extension Trip: DatabaseCreating {
             Logger.model.log("Table \(Trip.databaseTableName) does not exist.")
         }
 
-        // now create new table
-        // Match legacy schema from master branch
+        // Match legacy column order from master branch, but include all columns
         try db.create(table: Trip.databaseTableName) { t in
-            t.column(CodingKeys.blockIdentifier.rawValue, .text)
+            t.column(CodingKeys.identifier.rawValue, .text)
+                .notNull()
+                .primaryKey()
             t.column(CodingKeys.routeIdentifier.rawValue, .text)
-            t.column(CodingKeys.directionIdentifier.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.headSign.rawValue, .text)
+                .notNull()
+                .indexed()
+                .references(Route.databaseTableName)
             t.column(CodingKeys.serviceIdentifier.rawValue, .text)
-            t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
-            t.column(CodingKeys.shapeIdentifier.rawValue, .text).notNull()
+                .notNull()
+                .indexed()
+            t.column(CodingKeys.headSign.rawValue, .text)
+            t.column(CodingKeys.shortName.rawValue, .text)
+            t.column(CodingKeys.directionIdentifier.rawValue, .integer)
+            t.column(CodingKeys.blockIdentifier.rawValue, .text)
+            t.column(CodingKeys.shapeIdentifier.rawValue, .text)
+            t.column(CodingKeys.wheelchairAccessible.rawValue, .integer)
+                .notNull()
+            t.column(CodingKeys.bikesAllowed.rawValue, .integer)
+                .notNull()
         }
-
-        // Create indexes manually to match master schema
-        try db.create(index: "route_id_trips", on: Trip.databaseTableName, columns: [CodingKeys.routeIdentifier.rawValue])
     }
 }
 

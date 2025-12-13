@@ -93,21 +93,28 @@ extension StopTime: DatabaseCreating {
             Logger.model.log("Table \(StopTime.databaseTableName) does not exist.")
         }
 
-        // now create new table
-        // Match legacy schema from master branch
+        // Match legacy column order from master branch, but include all columns
         try db.create(table: StopTime.databaseTableName) { t in
             t.column(CodingKeys.tripIdentifier.rawValue, .text)
-            t.column(CodingKeys.arrivalTime.rawValue, Database.ColumnType(rawValue: "time"))
-            t.column(CodingKeys.departureTime.rawValue, Database.ColumnType(rawValue: "time"))
+                .notNull()
+                .indexed()
+                .references(Trip.databaseTableName)
+            t.column(CodingKeys.arrivalTime.rawValue, Database.ColumnType(rawValue: "TIME")).notNull()
+            t.column(CodingKeys.departureTime.rawValue, Database.ColumnType(rawValue: "TIME")).notNull()
             t.column(CodingKeys.stopIdentifier.rawValue, .text)
-            t.column(CodingKeys.stopSequence.rawValue, Database.ColumnType(rawValue: "int(11)"))
-            t.column(CodingKeys.timepoint.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
-            t.column(CodingKeys.isLastStop.rawValue, Database.ColumnType(rawValue: "tinyint(1)"))
+                .notNull()
+                .indexed()
+                .references(Stop.databaseTableName)
+            t.column(CodingKeys.stopSequence.rawValue, .integer).notNull()
+            t.column(CodingKeys.stopHeadsign.rawValue, .text)
+            t.column(CodingKeys.pickupType.rawValue, .integer).notNull()
+            t.column(CodingKeys.dropoffType.rawValue, .integer).notNull()
+            t.column(CodingKeys.continuousPickup.rawValue, .integer).notNull()
+            t.column(CodingKeys.continuousDropoff.rawValue, .integer).notNull()
+            t.column(CodingKeys.shapeDistanceTraveled.rawValue, .double)
+            t.column(CodingKeys.timepoint.rawValue, .integer).notNull()
+            t.column(CodingKeys.isLastStop.rawValue, .boolean).notNull().defaults(to: false)
         }
-
-        // Create indexes manually to match master schema
-        try db.create(index: "stop_id_stop_times", on: StopTime.databaseTableName, columns: [CodingKeys.stopIdentifier.rawValue])
-        try db.create(index: "trip_id_stop_times", on: StopTime.databaseTableName, columns: [CodingKeys.tripIdentifier.rawValue])
     }
 }
 
