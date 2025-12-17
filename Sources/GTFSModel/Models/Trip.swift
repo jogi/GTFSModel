@@ -38,9 +38,9 @@ public struct Trip {
 extension Trip: Hashable {}
 
 extension Trip: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "trips"
-    
-    private enum Columns {
+    public static let databaseTableName = "trips"
+
+    public enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let routeIdentifier = Column(CodingKeys.routeIdentifier)
         static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)

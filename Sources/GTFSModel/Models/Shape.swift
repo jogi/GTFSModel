@@ -21,9 +21,9 @@ public struct Shape {
 extension Shape: Hashable {}
 
 extension Shape: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "shapes"
-    
-    private enum Columns {
+    public static let databaseTableName = "shapes"
+
+    public enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let latitude = Column(CodingKeys.latitude)
         static let longitude = Column(CodingKeys.longitude)

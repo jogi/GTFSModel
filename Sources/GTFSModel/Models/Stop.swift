@@ -44,9 +44,9 @@ public struct Stop {
 extension Stop: Hashable {}
 
 extension Stop: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "stops"
-    
-    private enum Columns {
+    public static let databaseTableName = "stops"
+
+    public enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let code = Column(CodingKeys.code)
         static let name = Column(CodingKeys.name)

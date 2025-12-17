@@ -60,9 +60,9 @@ public struct Route {
 extension Route: Hashable {}
 
 extension Route: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "routes"
-    
-    private enum Columns {
+    public static let databaseTableName = "routes"
+
+    public enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let type = Column(CodingKeys.type)
         static let agencyIdentifier = Column(CodingKeys.agencyIdentifier)

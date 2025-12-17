@@ -24,7 +24,7 @@ public struct Agency {
 extension Agency: Hashable {}
 
 extension Agency: Codable, PersistableRecord, FetchableRecord {
-    private enum Columns {
+    public enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let name = Column(CodingKeys.name)
         static let url = Column(CodingKeys.url)

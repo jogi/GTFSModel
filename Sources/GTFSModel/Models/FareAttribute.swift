@@ -34,9 +34,9 @@ public struct FareAttribute {
 extension FareAttribute: Hashable {}
 
 extension FareAttribute: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "fare_attributes"
-    
-    private enum Columns {
+    public static let databaseTableName = "fare_attributes"
+
+    public enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let price = Column(CodingKeys.price)
         static let currencyType = Column(CodingKeys.currencyType)

@@ -21,9 +21,9 @@ public struct FareRule {
 extension FareRule: Hashable {}
 
 extension FareRule: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "fare_rules"
+    public static let databaseTableName = "fare_rules"
 
-    private enum Columns {
+    public enum Columns {
         static let fareIdentifier = Column(CodingKeys.fareIdentifier)
         static let routeIdentifier = Column(CodingKeys.routeIdentifier)
         static let originIdentifier = Column(CodingKeys.originIdentifier)

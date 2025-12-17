@@ -38,9 +38,9 @@ public struct Direction {
 extension Direction: Hashable {}
 
 extension Direction: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "directions"
-    
-    private enum Columns {
+    public static let databaseTableName = "directions"
+
+    public enum Columns {
         static let identifier = Column(CodingKeys.identifier)
         static let routeIdentifier = Column(CodingKeys.routeIdentifier)
         static let direction = Column(CodingKeys.direction)
