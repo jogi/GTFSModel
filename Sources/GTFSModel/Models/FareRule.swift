@@ -22,7 +22,7 @@ extension FareRule: Hashable {}
 
 extension FareRule: Codable, PersistableRecord, FetchableRecord {
     public static var databaseTableName = "fare_rules"
-    
+
     private enum Columns {
         static let fareIdentifier = Column(CodingKeys.fareIdentifier)
         static let routeIdentifier = Column(CodingKeys.routeIdentifier)
@@ -30,7 +30,7 @@ extension FareRule: Codable, PersistableRecord, FetchableRecord {
         static let destinationIdentifier = Column(CodingKeys.destinationIdentifier)
         static let containsIdentifier = Column(CodingKeys.containsIdentifier)
     }
-    
+
     public enum CodingKeys: String, CodingKey {
         case fareIdentifier = "fare_id"
         case routeIdentifier = "route_id"
@@ -47,8 +47,7 @@ extension FareRule: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(FareRule.databaseTableName) does not exist.")
         }
-        
-        // now create new table
+
         try db.create(table: FareRule.databaseTableName) { t in
             t.column(CodingKeys.fareIdentifier.rawValue, .text).notNull()
             t.column(CodingKeys.routeIdentifier.rawValue, .text)

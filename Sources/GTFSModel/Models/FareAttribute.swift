@@ -64,8 +64,7 @@ extension FareAttribute: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(FareAttribute.databaseTableName) does not exist.")
         }
-        
-        // now create new table
+
         try db.create(table: FareAttribute.databaseTableName) { t in
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
             t.column(CodingKeys.price.rawValue, .double).notNull()

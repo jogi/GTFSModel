@@ -34,7 +34,7 @@ extension Agency: Codable, PersistableRecord, FetchableRecord {
         static let fareURL = Column(CodingKeys.fareURL)
         static let email = Column(CodingKeys.email)
     }
-    
+
     public enum CodingKeys: String, CodingKey {
         case identifier = "agency_id"
         case name = "agency_name"
@@ -54,13 +54,12 @@ extension Agency: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(Agency.databaseTableName) does not exist.")
         }
-        
-        // now create new table
+
         try db.create(table: Agency.databaseTableName) { t in
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
-            t.column(CodingKeys.name.rawValue, .text).notNull()
-            t.column(CodingKeys.url.rawValue, .text).notNull()
-            t.column(CodingKeys.timezone.rawValue, .text).notNull()
+            t.column(CodingKeys.name.rawValue, .text)
+            t.column(CodingKeys.url.rawValue, .text)
+            t.column(CodingKeys.timezone.rawValue, .text)
             t.column(CodingKeys.language.rawValue, .text)
             t.column(CodingKeys.phone.rawValue, .text)
             t.column(CodingKeys.fareURL.rawValue, .text)

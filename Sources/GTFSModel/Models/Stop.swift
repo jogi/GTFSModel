@@ -88,15 +88,14 @@ extension Stop: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(Stop.databaseTableName) does not exist.")
         }
-        
-        // now create new table
+
         try db.create(table: Stop.databaseTableName) { t in
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
             t.column(CodingKeys.code.rawValue, .text)
             t.column(CodingKeys.name.rawValue, .text)
             t.column(CodingKeys.stopDescription.rawValue, .text)
-            t.column(CodingKeys.latitude.rawValue, .double).notNull().indexed()
-            t.column(CodingKeys.longitude.rawValue, .double).notNull().indexed()
+            t.column(CodingKeys.latitude.rawValue, .double).notNull()
+            t.column(CodingKeys.longitude.rawValue, .double).notNull()
             t.column(CodingKeys.zoneIdentifier.rawValue, .text)
             t.column(CodingKeys.locationType.rawValue, .integer).notNull()
             t.column(CodingKeys.parentStation.rawValue, .text)
@@ -106,6 +105,10 @@ extension Stop: DatabaseCreating {
             t.column(CodingKeys.platformCode.rawValue, .text)
             t.column(CodingKeys.routes.rawValue, .text)
         }
+
+        // Create indexes for geographic queries
+        try db.create(index: "stops_on_stop_lat", on: Stop.databaseTableName, columns: [CodingKeys.latitude.rawValue])
+        try db.create(index: "stops_on_stop_lon", on: Stop.databaseTableName, columns: [CodingKeys.longitude.rawValue])
     }
 }
 

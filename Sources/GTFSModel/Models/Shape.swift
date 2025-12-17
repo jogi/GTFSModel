@@ -47,8 +47,7 @@ extension Shape: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(Shape.databaseTableName) does not exist.")
         }
-        
-        // now create new table
+
         try db.create(table: Shape.databaseTableName) { t in
             t.column(CodingKeys.identifier.rawValue, .text).notNull().indexed()
             t.column(CodingKeys.latitude.rawValue, .double).notNull()

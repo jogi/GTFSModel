@@ -68,8 +68,7 @@ extension Calendar: DatabaseCreating {
         } catch {
             Logger.model.log("Table \(Calendar.databaseTableName) does not exist.")
         }
-        
-        // now create new table
+
         try db.create(table: Calendar.databaseTableName) { t in
             t.column(CodingKeys.serviceIdentifier.rawValue, .text).notNull().primaryKey()
             t.column(CodingKeys.startDate.rawValue, .date).notNull()
