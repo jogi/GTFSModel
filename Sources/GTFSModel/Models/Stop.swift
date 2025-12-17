@@ -89,22 +89,21 @@ extension Stop: DatabaseCreating {
             Logger.model.log("Table \(Stop.databaseTableName) does not exist.")
         }
 
-        // Match legacy column order from master branch, but include all columns
         try db.create(table: Stop.databaseTableName) { t in
-            t.column(CodingKeys.latitude.rawValue, .double).notNull().indexed()
-            t.column(CodingKeys.zoneIdentifier.rawValue, .text)
-            t.column(CodingKeys.longitude.rawValue, .double).notNull().indexed()
             t.column(CodingKeys.identifier.rawValue, .text).notNull().primaryKey()
-            t.column(CodingKeys.stopDescription.rawValue, .text)
-            t.column(CodingKeys.name.rawValue, .text)
-            t.column(CodingKeys.locationType.rawValue, .integer).notNull()
-            t.column(CodingKeys.routes.rawValue, .text)
             t.column(CodingKeys.code.rawValue, .text)
+            t.column(CodingKeys.name.rawValue, .text)
+            t.column(CodingKeys.stopDescription.rawValue, .text)
+            t.column(CodingKeys.latitude.rawValue, .double).notNull()
+            t.column(CodingKeys.longitude.rawValue, .double).notNull()
+            t.column(CodingKeys.zoneIdentifier.rawValue, .text)
+            t.column(CodingKeys.locationType.rawValue, .integer).notNull()
             t.column(CodingKeys.parentStation.rawValue, .text)
             t.column(CodingKeys.timezone.rawValue, .text)
             t.column(CodingKeys.wheelchairBording.rawValue, .integer).notNull()
             t.column(CodingKeys.levelIdentifier.rawValue, .text)
             t.column(CodingKeys.platformCode.rawValue, .text)
+            t.column(CodingKeys.routes.rawValue, .text)
         }
     }
 }

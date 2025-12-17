@@ -93,27 +93,20 @@ extension StopTime: DatabaseCreating {
             Logger.model.log("Table \(StopTime.databaseTableName) does not exist.")
         }
 
-        // Match legacy column order from master branch, but include all columns
         try db.create(table: StopTime.databaseTableName) { t in
-            t.column(CodingKeys.tripIdentifier.rawValue, .text)
-                .notNull()
-                .indexed()
-                .references(Trip.databaseTableName)
-            t.column(CodingKeys.arrivalTime.rawValue, Database.ColumnType(rawValue: "TIME")).notNull()
-            t.column(CodingKeys.departureTime.rawValue, Database.ColumnType(rawValue: "TIME")).notNull()
-            t.column(CodingKeys.stopIdentifier.rawValue, .text)
-                .notNull()
-                .indexed()
-                .references(Stop.databaseTableName)
+            t.column(CodingKeys.tripIdentifier.rawValue, .text).notNull().indexed().references(Trip.databaseTableName)
+            t.column(CodingKeys.arrivalTime.rawValue, .text).notNull()
+            t.column(CodingKeys.departureTime.rawValue, .text).notNull()
+            t.column(CodingKeys.stopIdentifier.rawValue, .text).notNull().indexed().references(Stop.databaseTableName)
             t.column(CodingKeys.stopSequence.rawValue, .integer).notNull()
-            t.column(CodingKeys.timepoint.rawValue, .integer).notNull()
-            t.column(CodingKeys.isLastStop.rawValue, .boolean).notNull().defaults(to: false)
             t.column(CodingKeys.stopHeadsign.rawValue, .text)
-            t.column(CodingKeys.pickupType.rawValue, .integer).notNull()
-            t.column(CodingKeys.dropoffType.rawValue, .integer).notNull()
-            t.column(CodingKeys.continuousPickup.rawValue, .integer).notNull()
-            t.column(CodingKeys.continuousDropoff.rawValue, .integer).notNull()
+            t.column(CodingKeys.pickupType.rawValue, .integer)
+            t.column(CodingKeys.dropoffType.rawValue, .integer)
+            t.column(CodingKeys.continuousPickup.rawValue, .integer)
+            t.column(CodingKeys.continuousDropoff.rawValue, .integer)
             t.column(CodingKeys.shapeDistanceTraveled.rawValue, .double)
+            t.column(CodingKeys.timepoint.rawValue, .integer)
+            t.column(CodingKeys.isLastStop.rawValue, .boolean)
         }
     }
 }
