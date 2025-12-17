@@ -48,7 +48,6 @@ extension Shape: DatabaseCreating {
             Logger.model.log("Table \(Shape.databaseTableName) does not exist.")
         }
 
-        // Match legacy column order from master branch
         try db.create(table: Shape.databaseTableName) { t in
             t.column(CodingKeys.identifier.rawValue, .text).notNull().indexed()
             t.column(CodingKeys.latitude.rawValue, .double).notNull()

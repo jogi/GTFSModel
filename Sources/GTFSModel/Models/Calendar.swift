@@ -69,7 +69,6 @@ extension Calendar: DatabaseCreating {
             Logger.model.log("Table \(Calendar.databaseTableName) does not exist.")
         }
 
-        // Match legacy column order from master branch
         try db.create(table: Calendar.databaseTableName) { t in
             t.column(CodingKeys.serviceIdentifier.rawValue, .text).notNull().primaryKey()
             t.column(CodingKeys.startDate.rawValue, .date).notNull()

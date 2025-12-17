@@ -48,7 +48,6 @@ extension FareRule: DatabaseCreating {
             Logger.model.log("Table \(FareRule.databaseTableName) does not exist.")
         }
 
-        // Match legacy column order from master branch
         try db.create(table: FareRule.databaseTableName) { t in
             t.column(CodingKeys.fareIdentifier.rawValue, .text).notNull()
             t.column(CodingKeys.routeIdentifier.rawValue, .text)
