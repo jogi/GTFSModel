@@ -105,6 +105,10 @@ extension Stop: DatabaseCreating {
             t.column(CodingKeys.platformCode.rawValue, .text)
             t.column(CodingKeys.routes.rawValue, .text)
         }
+
+        // Create indexes for geographic queries
+        try db.create(index: "stops_on_stop_lat", on: Stop.databaseTableName, columns: [CodingKeys.latitude.rawValue])
+        try db.create(index: "stops_on_stop_lon", on: Stop.databaseTableName, columns: [CodingKeys.longitude.rawValue])
     }
 }
 
