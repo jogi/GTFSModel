@@ -48,11 +48,15 @@ public struct StopTime {
 extension StopTime: Hashable {}
 
 extension StopTime: Codable, PersistableRecord, FetchableRecord {
-    public static var databaseTableName = "stop_times"
-    public static var databaseDateEncodingStrategy = DatabaseDateEncodingStrategy.formatted(DateFormatter.hhmmss)
-    public static var databaseDateDecodingStrategy = DatabaseDateDecodingStrategy.formatted(DateFormatter.hhmmss)
+    public static let databaseTableName = "stop_times"
+    public static func databaseDateEncodingStrategy(for column: String) -> DatabaseDateEncodingStrategy {
+        .formatted(DateFormatter.hhmmss)
+    }
+    public static func databaseDateDecodingStrategy(for column: String) -> DatabaseDateDecodingStrategy {
+        .formatted(DateFormatter.hhmmss)
+    }
     
-    private enum Columns {
+    public enum Columns {
         static let tripIdentifier = Column(CodingKeys.tripIdentifier)
         static let arrivalTime = Column(CodingKeys.arrivalTime)
         static let departureTime = Column(CodingKeys.departureTime)

@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 extension Logger {
-    private static var subsystem = "com.jogi.gtfs-model"
+    private static let subsystem = "com.jogi.gtfs-model"
 
     static let model = Logger(subsystem: subsystem, category: "model")
 }

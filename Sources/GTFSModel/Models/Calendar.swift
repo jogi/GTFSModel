@@ -31,10 +31,14 @@ public struct Calendar {
 extension Calendar: Hashable {}
 
 extension Calendar: Codable, PersistableRecord, FetchableRecord {
-    public static let databaseDateEncodingStrategy: DatabaseDateEncodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
-    public static let databaseDateDecodingStrategy: DatabaseDateDecodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
+    public static func databaseDateEncodingStrategy(for column: String) -> DatabaseDateEncodingStrategy {
+        .formatted(DateFormatter.yyyyMMddDash)
+    }
+    public static func databaseDateDecodingStrategy(for column: String) -> DatabaseDateDecodingStrategy {
+        .formatted(DateFormatter.yyyyMMddDash)
+    }
     
-    private enum Columns {
+    public enum Columns {
         static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
         static let startDate = Column(CodingKeys.startDate)
         static let endDate = Column(CodingKeys.endDate)

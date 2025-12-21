@@ -23,11 +23,15 @@ public struct CalendarDate {
 extension CalendarDate: Hashable {}
 
 extension CalendarDate: Codable, PersistableRecord, FetchableRecord {
-    public static let databaseDateEncodingStrategy: DatabaseDateEncodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
-    public static let databaseDateDecodingStrategy: DatabaseDateDecodingStrategy = .formatted(DateFormatter.yyyyMMddDash)
-    public static var databaseTableName = "calendar_dates"
-    
-    private enum Columns {
+    public static func databaseDateEncodingStrategy(for column: String) -> DatabaseDateEncodingStrategy {
+        .formatted(DateFormatter.yyyyMMddDash)
+    }
+    public static func databaseDateDecodingStrategy(for column: String) -> DatabaseDateDecodingStrategy {
+        .formatted(DateFormatter.yyyyMMddDash)
+    }
+    public static let databaseTableName = "calendar_dates"
+
+    public enum Columns {
         static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
         static let date = Column(CodingKeys.date)
         static let exceptionType = Column(CodingKeys.exceptionType)
