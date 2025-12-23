@@ -35,7 +35,16 @@ struct DatabaseHelperTests {
         try helper.dbQueue?.write { db in
             try Agency.createTable(db: db)
             for i in 1...100 {
-                let agency = TestFixtures.sampleAgency(identifier: "AGENCY\(i)")
+                let agency = Agency(
+                    identifier: "AGENCY\(i)",
+                    name: "Test Agency \(i)",
+                    url: URL(string: "https://example.com")!,
+                    timezone: "America/Los_Angeles",
+                    language: nil,
+                    phone: nil,
+                    fareURL: nil,
+                    email: nil
+                )
                 try agency.insert(db)
             }
         }
@@ -61,7 +70,16 @@ struct DatabaseHelperTests {
         // Create table with data
         try helper.dbQueue?.write { db in
             try Agency.createTable(db: db)
-            let agency = TestFixtures.sampleAgency()
+            let agency = Agency(
+                identifier: "TEST",
+                name: "Test Agency",
+                url: URL(string: "https://example.com")!,
+                timezone: "America/Los_Angeles",
+                language: nil,
+                phone: nil,
+                fareURL: nil,
+                email: nil
+            )
             try agency.insert(db)
         }
 
