@@ -63,18 +63,18 @@ extension Route: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "routes"
 
     public enum Columns {
-        static let identifier = Column(CodingKeys.identifier)
-        static let type = Column(CodingKeys.type)
-        static let agencyIdentifier = Column(CodingKeys.agencyIdentifier)
-        static let shortName = Column(CodingKeys.shortName)
-        static let longName = Column(CodingKeys.longName)
-        static let routeDescription = Column(CodingKeys.routeDescription)
-        static let url = Column(CodingKeys.url)
-        static let color = Column(CodingKeys.color)
-        static let textColor = Column(CodingKeys.textColor)
-        static let sortOrder = Column(CodingKeys.sortOrder)
-        static let continuousPickup = Column(CodingKeys.continuousPickup)
-        static let continuousDropoff = Column(CodingKeys.continuousDropoff)
+        public static let identifier = Column(CodingKeys.identifier)
+        public static let type = Column(CodingKeys.type)
+        public static let agencyIdentifier = Column(CodingKeys.agencyIdentifier)
+        public static let shortName = Column(CodingKeys.shortName)
+        public static let longName = Column(CodingKeys.longName)
+        public static let routeDescription = Column(CodingKeys.routeDescription)
+        public static let url = Column(CodingKeys.url)
+        public static let color = Column(CodingKeys.color)
+        public static let textColor = Column(CodingKeys.textColor)
+        public static let sortOrder = Column(CodingKeys.sortOrder)
+        public static let continuousPickup = Column(CodingKeys.continuousPickup)
+        public static let continuousDropoff = Column(CodingKeys.continuousDropoff)
     }
     
     public enum CodingKeys: String, CodingKey {

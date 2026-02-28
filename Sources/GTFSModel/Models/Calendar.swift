@@ -39,16 +39,16 @@ extension Calendar: Codable, PersistableRecord, FetchableRecord {
     }
     
     public enum Columns {
-        static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
-        static let startDate = Column(CodingKeys.startDate)
-        static let endDate = Column(CodingKeys.endDate)
-        static let monday = Column(CodingKeys.monday)
-        static let tuesday = Column(CodingKeys.tuesday)
-        static let wednesday = Column(CodingKeys.wednesday)
-        static let thursday = Column(CodingKeys.thursday)
-        static let friday = Column(CodingKeys.friday)
-        static let saturday = Column(CodingKeys.saturday)
-        static let sunday = Column(CodingKeys.sunday)
+        public static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
+        public static let startDate = Column(CodingKeys.startDate)
+        public static let endDate = Column(CodingKeys.endDate)
+        public static let monday = Column(CodingKeys.monday)
+        public static let tuesday = Column(CodingKeys.tuesday)
+        public static let wednesday = Column(CodingKeys.wednesday)
+        public static let thursday = Column(CodingKeys.thursday)
+        public static let friday = Column(CodingKeys.friday)
+        public static let saturday = Column(CodingKeys.saturday)
+        public static let sunday = Column(CodingKeys.sunday)
     }
     
     public enum CodingKeys: String, CodingKey {

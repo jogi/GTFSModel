@@ -37,13 +37,13 @@ extension FareAttribute: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "fare_attributes"
 
     public enum Columns {
-        static let identifier = Column(CodingKeys.identifier)
-        static let price = Column(CodingKeys.price)
-        static let currencyType = Column(CodingKeys.currencyType)
-        static let paymentMethod = Column(CodingKeys.paymentMethod)
-        static let transfers = Column(CodingKeys.transfers)
-        static let agencyIdentifier = Column(CodingKeys.agencyIdentifier)
-        static let transferDuration = Column(CodingKeys.transferDuration)
+        public static let identifier = Column(CodingKeys.identifier)
+        public static let price = Column(CodingKeys.price)
+        public static let currencyType = Column(CodingKeys.currencyType)
+        public static let paymentMethod = Column(CodingKeys.paymentMethod)
+        public static let transfers = Column(CodingKeys.transfers)
+        public static let agencyIdentifier = Column(CodingKeys.agencyIdentifier)
+        public static let transferDuration = Column(CodingKeys.transferDuration)
     }
     
     public enum CodingKeys: String, CodingKey {

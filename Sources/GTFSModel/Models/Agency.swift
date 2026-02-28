@@ -25,14 +25,14 @@ extension Agency: Hashable {}
 
 extension Agency: Codable, PersistableRecord, FetchableRecord {
     public enum Columns {
-        static let identifier = Column(CodingKeys.identifier)
-        static let name = Column(CodingKeys.name)
-        static let url = Column(CodingKeys.url)
-        static let timezone = Column(CodingKeys.timezone)
-        static let language = Column(CodingKeys.language)
-        static let phone = Column(CodingKeys.phone)
-        static let fareURL = Column(CodingKeys.fareURL)
-        static let email = Column(CodingKeys.email)
+        public static let identifier = Column(CodingKeys.identifier)
+        public static let name = Column(CodingKeys.name)
+        public static let url = Column(CodingKeys.url)
+        public static let timezone = Column(CodingKeys.timezone)
+        public static let language = Column(CodingKeys.language)
+        public static let phone = Column(CodingKeys.phone)
+        public static let fareURL = Column(CodingKeys.fareURL)
+        public static let email = Column(CodingKeys.email)
     }
 
     public enum CodingKeys: String, CodingKey {

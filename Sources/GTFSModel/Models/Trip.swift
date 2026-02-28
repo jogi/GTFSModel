@@ -41,16 +41,16 @@ extension Trip: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "trips"
 
     public enum Columns {
-        static let identifier = Column(CodingKeys.identifier)
-        static let routeIdentifier = Column(CodingKeys.routeIdentifier)
-        static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
-        static let headSign = Column(CodingKeys.headSign)
-        static let shortName = Column(CodingKeys.shortName)
-        static let directionIdentifier = Column(CodingKeys.directionIdentifier)
-        static let blockIdentifier = Column(CodingKeys.blockIdentifier)
-        static let shapeIdentifier = Column(CodingKeys.shapeIdentifier)
-        static let wheelchairAccessible = Column(CodingKeys.wheelchairAccessible)
-        static let bikesAllowed = Column(CodingKeys.bikesAllowed)
+        public static let identifier = Column(CodingKeys.identifier)
+        public static let routeIdentifier = Column(CodingKeys.routeIdentifier)
+        public static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
+        public static let headSign = Column(CodingKeys.headSign)
+        public static let shortName = Column(CodingKeys.shortName)
+        public static let directionIdentifier = Column(CodingKeys.directionIdentifier)
+        public static let blockIdentifier = Column(CodingKeys.blockIdentifier)
+        public static let shapeIdentifier = Column(CodingKeys.shapeIdentifier)
+        public static let wheelchairAccessible = Column(CodingKeys.wheelchairAccessible)
+        public static let bikesAllowed = Column(CodingKeys.bikesAllowed)
     }
     
     public enum CodingKeys: String, CodingKey {

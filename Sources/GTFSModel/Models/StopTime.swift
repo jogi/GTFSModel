@@ -57,19 +57,19 @@ extension StopTime: Codable, PersistableRecord, FetchableRecord {
     }
     
     public enum Columns {
-        static let tripIdentifier = Column(CodingKeys.tripIdentifier)
-        static let arrivalTime = Column(CodingKeys.arrivalTime)
-        static let departureTime = Column(CodingKeys.departureTime)
-        static let stopIdentifier = Column(CodingKeys.stopIdentifier)
-        static let stopSequence = Column(CodingKeys.stopSequence)
-        static let stopHeadsign = Column(CodingKeys.stopHeadsign)
-        static let pickupType = Column(CodingKeys.pickupType)
-        static let dropoffType = Column(CodingKeys.dropoffType)
-        static let continuousPickup = Column(CodingKeys.continuousPickup)
-        static let continuousDropoff = Column(CodingKeys.continuousDropoff)
-        static let shapeDistanceTraveled = Column(CodingKeys.shapeDistanceTraveled)
-        static let timepoint = Column(CodingKeys.timepoint)
-        static let isLastStop = Column(CodingKeys.isLastStop)
+        public static let tripIdentifier = Column(CodingKeys.tripIdentifier)
+        public static let arrivalTime = Column(CodingKeys.arrivalTime)
+        public static let departureTime = Column(CodingKeys.departureTime)
+        public static let stopIdentifier = Column(CodingKeys.stopIdentifier)
+        public static let stopSequence = Column(CodingKeys.stopSequence)
+        public static let stopHeadsign = Column(CodingKeys.stopHeadsign)
+        public static let pickupType = Column(CodingKeys.pickupType)
+        public static let dropoffType = Column(CodingKeys.dropoffType)
+        public static let continuousPickup = Column(CodingKeys.continuousPickup)
+        public static let continuousDropoff = Column(CodingKeys.continuousDropoff)
+        public static let shapeDistanceTraveled = Column(CodingKeys.shapeDistanceTraveled)
+        public static let timepoint = Column(CodingKeys.timepoint)
+        public static let isLastStop = Column(CodingKeys.isLastStop)
     }
     
     public enum CodingKeys: String, CodingKey {

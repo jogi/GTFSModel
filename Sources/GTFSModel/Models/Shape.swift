@@ -24,11 +24,11 @@ extension Shape: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "shapes"
 
     public enum Columns {
-        static let identifier = Column(CodingKeys.identifier)
-        static let latitude = Column(CodingKeys.latitude)
-        static let longitude = Column(CodingKeys.longitude)
-        static let sequence = Column(CodingKeys.sequence)
-        static let distanceTraveled = Column(CodingKeys.distanceTraveled)
+        public static let identifier = Column(CodingKeys.identifier)
+        public static let latitude = Column(CodingKeys.latitude)
+        public static let longitude = Column(CodingKeys.longitude)
+        public static let sequence = Column(CodingKeys.sequence)
+        public static let distanceTraveled = Column(CodingKeys.distanceTraveled)
     }
     
     public enum CodingKeys: String, CodingKey {

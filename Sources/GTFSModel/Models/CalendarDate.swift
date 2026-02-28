@@ -32,9 +32,9 @@ extension CalendarDate: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "calendar_dates"
 
     public enum Columns {
-        static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
-        static let date = Column(CodingKeys.date)
-        static let exceptionType = Column(CodingKeys.exceptionType)
+        public static let serviceIdentifier = Column(CodingKeys.serviceIdentifier)
+        public static let date = Column(CodingKeys.date)
+        public static let exceptionType = Column(CodingKeys.exceptionType)
     }
     
     public enum CodingKeys: String, CodingKey {

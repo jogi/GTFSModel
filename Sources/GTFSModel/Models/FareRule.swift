@@ -24,11 +24,11 @@ extension FareRule: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "fare_rules"
 
     public enum Columns {
-        static let fareIdentifier = Column(CodingKeys.fareIdentifier)
-        static let routeIdentifier = Column(CodingKeys.routeIdentifier)
-        static let originIdentifier = Column(CodingKeys.originIdentifier)
-        static let destinationIdentifier = Column(CodingKeys.destinationIdentifier)
-        static let containsIdentifier = Column(CodingKeys.containsIdentifier)
+        public static let fareIdentifier = Column(CodingKeys.fareIdentifier)
+        public static let routeIdentifier = Column(CodingKeys.routeIdentifier)
+        public static let originIdentifier = Column(CodingKeys.originIdentifier)
+        public static let destinationIdentifier = Column(CodingKeys.destinationIdentifier)
+        public static let containsIdentifier = Column(CodingKeys.containsIdentifier)
     }
 
     public enum CodingKeys: String, CodingKey {

@@ -47,20 +47,20 @@ extension Stop: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "stops"
 
     public enum Columns {
-        static let identifier = Column(CodingKeys.identifier)
-        static let code = Column(CodingKeys.code)
-        static let name = Column(CodingKeys.name)
-        static let stopDescription = Column(CodingKeys.stopDescription)
-        static let latitude = Column(CodingKeys.latitude)
-        static let longitude = Column(CodingKeys.longitude)
-        static let zoneIdentifier = Column(CodingKeys.zoneIdentifier)
-        static let locationType = Column(CodingKeys.locationType)
-        static let parentStation = Column(CodingKeys.parentStation)
-        static let timezone = Column(CodingKeys.timezone)
-        static let wheelchairBording = Column(CodingKeys.wheelchairBording)
-        static let levelIdentifier = Column(CodingKeys.levelIdentifier)
-        static let platformCode = Column(CodingKeys.platformCode)
-        static let routes = Column(CodingKeys.routes)
+        public static let identifier = Column(CodingKeys.identifier)
+        public static let code = Column(CodingKeys.code)
+        public static let name = Column(CodingKeys.name)
+        public static let stopDescription = Column(CodingKeys.stopDescription)
+        public static let latitude = Column(CodingKeys.latitude)
+        public static let longitude = Column(CodingKeys.longitude)
+        public static let zoneIdentifier = Column(CodingKeys.zoneIdentifier)
+        public static let locationType = Column(CodingKeys.locationType)
+        public static let parentStation = Column(CodingKeys.parentStation)
+        public static let timezone = Column(CodingKeys.timezone)
+        public static let wheelchairBording = Column(CodingKeys.wheelchairBording)
+        public static let levelIdentifier = Column(CodingKeys.levelIdentifier)
+        public static let platformCode = Column(CodingKeys.platformCode)
+        public static let routes = Column(CodingKeys.routes)
     }
     
     public enum CodingKeys: String, CodingKey {
