@@ -34,6 +34,17 @@ public struct FareAttribute {
 extension FareAttribute: Hashable {}
 
 extension FareAttribute: Codable, PersistableRecord, FetchableRecord {
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        identifier = try values.decode(String.self, forKey: .identifier)
+        price = try values.decode(Float.self, forKey: .price)
+        currencyType = try values.decode(String.self, forKey: .currencyType)
+        paymentMethod = try values.decode(PaymentMethod.self, forKey: .paymentMethod)
+        transfers = try values.decodeIfPresent(AllowedTransfers.self, forKey: .transfers) ?? .unlimited
+        agencyIdentifier = try values.decodeIfPresent(String.self, forKey: .agencyIdentifier)
+        transferDuration = try values.decodeIfPresent(UInt.self, forKey: .transferDuration)
+    }
+
     public static let databaseTableName = "fare_attributes"
 
     public enum Columns {

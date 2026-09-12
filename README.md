@@ -86,3 +86,24 @@ Schema follows the official [GTFS Schedule Reference](https://gtfs.org/documenta
 ## Documentation
 
 See [CLAUDE.md](CLAUDE.md) for detailed architecture, schema design, and implementation notes.
+
+## Service-day times
+
+`StopTime` keeps its `Date` arrival/departure properties, but their dates represent
+service-day offsets from `ServiceDayTime.referenceDate` (January 1, 2000 at midnight
+in Los Angeles), not actual scheduled dates. Ordinary times retain the same reference
+as `DateFormatter.hhmmss`. Extended times retain subsequent reference days:
+
+```swift
+let arrival = ServiceDayTime.date(from: "24:10:00")!
+ServiceDayTime.string(from: arrival) // "24:10:00"
+```
+
+The database coding strategies use these conversions, so reading and saving a
+`StopTime` preserves extended hours. Use `ServiceDayTime` to construct or serialize
+these offsets. Formatting with `DateFormatter.hhmmss` intentionally shows only the
+clock time and must not be used to persist the service-day value. An actual service
+date and agency timezone must be applied separately when calculating a real journey.
+
+Empty or omitted fare transfer values decode as unlimited transfers, represented
+by `FareAttribute.AllowedTransfers.unlimited` (`-1`) in the database.

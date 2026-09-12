@@ -30,6 +30,7 @@ public struct StopTime {
     }
     
     public var tripIdentifier: String
+    /// Service-day offset anchored at `ServiceDayTime.referenceDate`, including extended hours.
     public var arrivalTime: Date
     public var departureTime: Date
     public var stopIdentifier: String
@@ -50,10 +51,12 @@ extension StopTime: Hashable {}
 extension StopTime: Codable, PersistableRecord, FetchableRecord {
     public static let databaseTableName = "stop_times"
     public static func databaseDateEncodingStrategy(for column: String) -> DatabaseDateEncodingStrategy {
-        .formatted(DateFormatter.hhmmss)
+        .custom { ServiceDayTime.string(from: $0) }
     }
     public static func databaseDateDecodingStrategy(for column: String) -> DatabaseDateDecodingStrategy {
-        .formatted(DateFormatter.hhmmss)
+        .custom { value in
+            String.fromDatabaseValue(value).flatMap { ServiceDayTime.date(from: $0) }
+        }
     }
     
     public enum Columns {
