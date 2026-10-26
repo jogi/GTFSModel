@@ -34,7 +34,7 @@ public struct Stop {
     public var locationType: LocationType = .stop
     public var parentStation: String?
     public var timezone: String?
-    public var wheelchairBording: WheelchairBoarding = .noInformation
+    public var wheelchairBording: WheelchairBoarding? = .noInformation
     public var levelIdentifier: String?
     public var platformCode: String?
     public var routes: String?
