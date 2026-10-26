@@ -14,18 +14,20 @@ public struct FareAttribute {
         case paidOnBoard = 0
         case paidBeforeBoarding = 1
     }
-    public enum AllowedTransfers: Int, Codable {
+    public enum AllowedTransfers: Int, Codable, Defaultable {
         case no = 0
         case once = 1
         case twice = 2
         case unlimited = -1
+
+        public static let defaultValue: Self = .unlimited
     }
 
     public var identifier: String
     public var price: Float
     public var currencyType: String
     public var paymentMethod: PaymentMethod
-    public var transfers: AllowedTransfers = .unlimited
+    @Default public var transfers: AllowedTransfers = .unlimited
     public var agencyIdentifier: String?
     public var transferDuration: UInt?
 }
@@ -34,17 +36,6 @@ public struct FareAttribute {
 extension FareAttribute: Hashable {}
 
 extension FareAttribute: Codable, PersistableRecord, FetchableRecord {
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        identifier = try values.decode(String.self, forKey: .identifier)
-        price = try values.decode(Float.self, forKey: .price)
-        currencyType = try values.decode(String.self, forKey: .currencyType)
-        paymentMethod = try values.decode(PaymentMethod.self, forKey: .paymentMethod)
-        transfers = try values.decodeIfPresent(AllowedTransfers.self, forKey: .transfers) ?? .unlimited
-        agencyIdentifier = try values.decodeIfPresent(String.self, forKey: .agencyIdentifier)
-        transferDuration = try values.decodeIfPresent(UInt.self, forKey: .transferDuration)
-    }
-
     public static let databaseTableName = "fare_attributes"
 
     public enum Columns {

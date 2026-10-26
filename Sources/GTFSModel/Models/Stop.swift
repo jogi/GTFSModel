@@ -10,18 +10,22 @@ import GRDB
 import OSLog
 
 public struct Stop {
-    public enum LocationType: Int, Codable {
+    public enum LocationType: Int, Codable, Defaultable {
         case stop = 0
         case station = 1
         case entranceOrExit = 2
         case genericNode = 3
         case boardingArea = 4
+
+        public static let defaultValue: Self = .stop
     }
     
-    public enum WheelchairBoarding: Int, Codable {
+    public enum WheelchairBoarding: Int, Codable, Defaultable {
         case noInformation = 0
         case partiallyAccessible = 1
         case notAccessible = 2
+
+        public static let defaultValue: Self = .noInformation
     }
     
     public var identifier: String
@@ -31,10 +35,10 @@ public struct Stop {
     public var latitude: Double = 0
     public var longitude: Double = 0
     public var zoneIdentifier: String?
-    public var locationType: LocationType = .stop
+    @Default public var locationType: LocationType = .stop
     public var parentStation: String?
     public var timezone: String?
-    public var wheelchairBording: WheelchairBoarding? = .noInformation
+    @Default public var wheelchairBording: WheelchairBoarding = .noInformation
     public var levelIdentifier: String?
     public var platformCode: String?
     public var routes: String?
